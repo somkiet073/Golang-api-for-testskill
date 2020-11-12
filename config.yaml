@@ -7,7 +7,7 @@ MYSQL:
    DB_DRIVER: mysql
    DB_USER: root
    DB_PASSWORD: 
-   DB_NAME: go-kanbanboard
+   DB_NAME: gotestskill
    DB_PORT: 3306
 
 MYSQL_TEST:
@@ -15,7 +15,7 @@ MYSQL_TEST:
    DB_DRIVER: mysql
    DB_USER: root
    DB_PASSWORD: 
-   DB_NAME: go-kanbanboard-test
+   DB_NAME: gotestskill_test
    DB_PORT: 3306
 
 POSTGRES: 
