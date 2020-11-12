@@ -1,0 +1,27 @@
+APP:
+   API_SECRET: 99secretkey99 #Used when creating a JWT. It can be anything
+   SERVER_PORT: 8081
+
+MYSQL:
+   DB_HOST: 127.0.0.1
+   DB_DRIVER: mysql
+   DB_USER: root
+   DB_PASSWORD: 
+   DB_NAME: go-kanbanboard
+   DB_PORT: 3306
+
+MYSQL_TEST:
+   DB_HOST: 127.0.0.1
+   DB_DRIVER: mysql
+   DB_USER: root
+   DB_PASSWORD: 
+   DB_NAME: go-kanbanboard-test
+   DB_PORT: 3306
+
+POSTGRES: 
+   DB_HOST: 127.0.0.1
+   DB_DRIVER: postgres
+   DB_USER: root
+   DB_PASSWORD: 
+   DB_NAME: go-kanbanboard
+   DB_PORT: 5432
