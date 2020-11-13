@@ -1,6 +1,6 @@
 APP:
    API_SECRET: 99secretkey99 #Used when creating a JWT. It can be anything
-   SERVER_PORT: 8081
+   SERVER_PORT: :8081
 
 MYSQL:
    DB_HOST: 127.0.0.1

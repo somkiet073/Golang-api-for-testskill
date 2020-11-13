@@ -68,5 +68,4 @@ func ExtractTokenID(r *http.Request) (uint32, error) {
 	}
 
 	return 0, nil
-
 }
