@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/gorilla/mux"
+	// "github.com/gorilla/mux"
 	config "github.com/somkiet073/Golang-api-for-testskill/app/utils/configs"
 )
 
@@ -28,8 +28,9 @@ func CreateToken(userID uint32) (string, error) {
 	claims := jwt.MapClaims{}
 	claims["authorized"] = true
 	claims["userID"] = userID
-	claims["exp"] = time.Now().Add(time.Hour * 1).Unix
-	token := jwt.NewWithClaims(jwt.SigningMethodES256, claims)
+	claims["exp"] = time.Now().Add(time.Hour * 1).Unix()
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
 	return token.SignedString([]byte(configs.APISecret))
 
 }
@@ -39,7 +40,7 @@ func extractToken(r *http.Request) string {
 	// keys := r.URL.Query() // รับค่า Query string url
 	// token := keys.Get("token") // get ค่า จาก query string "token"
 
-	token := mux.Vars(r)["token"]
+	token := r.Header.Get("token") // mux.Vars(r)["token"]
 	return token
 }
 
@@ -53,6 +54,7 @@ func parseTokenString(token *jwt.Token) (interface{}, error) {
 // ExtractTokenID = extractTokenID
 func ExtractTokenID(r *http.Request) (uint32, error) {
 	tokenString := extractToken(r)
+	fmt.Println(tokenString)
 	token, err := jwt.Parse(tokenString, parseTokenString)
 
 	if err != nil {
@@ -60,7 +62,7 @@ func ExtractTokenID(r *http.Request) (uint32, error) {
 	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		uid, err := strconv.ParseUint(fmt.Sprintf("%.0f", claims["user_id"]), 10, 32)
+		uid, err := strconv.ParseUint(fmt.Sprintf("%.0f", claims["userID"]), 10, 32)
 		if err != nil {
 			return 0, err
 		}

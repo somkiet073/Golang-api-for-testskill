@@ -10,26 +10,28 @@ func (s *Server) initializeRoutes() {
 
 	group := "/api/v1"
 	// Welcome Route
-	s.Router.HandleFunc(group+"/", s.welcome).Methods("GET")
+	s.Router.HandleFunc(group+"/", s.welcome).Methods(http.MethodGet)
+
+	// login Route
+	s.Router.HandleFunc(group+"/login", s.login).Methods(http.MethodPost)
 
 	// User Route
-	s.Router.HandleFunc(group+"/user", s.createUser).Methods("POST")
-	s.Router.HandleFunc(group+"/user/all", s.getAllUser).Methods("GET")
-	s.Router.HandleFunc(group+"/user/{id:[1-9]+}", s.updateUser).Methods("PUT")
-	s.Router.HandleFunc(group+"/user/{id:[1-9]+}", s.getUserByID).Methods("GET")
-	s.Router.HandleFunc(group+"/user/{id:[1-9]+}", s.deleteUser).Methods("DELETE")
+	s.Router.HandleFunc(group+"/user", s.createUser).Methods(http.MethodPost)
+	s.Router.HandleFunc(group+"/user/all", s.getAllUser).Methods(http.MethodGet)
+	s.Router.HandleFunc(group+"/user/{id:[1-9]+}", s.updateUser).Methods(http.MethodPut)
+	s.Router.HandleFunc(group+"/user/{id:[1-9]+}", s.getUserByID).Methods(http.MethodGet)
+	s.Router.HandleFunc(group+"/user/{id:[1-9]+}", s.deleteUser).Methods(http.MethodDelete)
 
 	// Project Route
-	s.Router.HandleFunc(group+"/project", s.createProject).Methods("POST")
-	s.Router.HandleFunc(group+"/project/all", s.getAllProject).Methods("GET")
-	s.Router.HandleFunc(group+"/project/{id:[1-9]+}", s.updateProject).Methods("PUT")
-	s.Router.HandleFunc(group+"/project/{id:[1-9]+}", s.getProjectByID).Methods("GET")
-	s.Router.HandleFunc(group+"/project/{id:[1-9]+}", s.deleteProject).Methods("DELETE")
+	s.Router.HandleFunc(group+"/project", s.createProject).Methods(http.MethodPost)
+	s.Router.HandleFunc(group+"/project/all", s.getAllProject).Methods(http.MethodGet)
+	s.Router.HandleFunc(group+"/project/{id:[1-9]+}", s.updateProject).Methods(http.MethodPut)
+	s.Router.HandleFunc(group+"/project/{id:[1-9]+}", s.getProjectByID).Methods(http.MethodGet)
+	s.Router.HandleFunc(group+"/project/{id:[1-9]+}", s.deleteProject).Methods(http.MethodDelete)
 
 	myList := s.myRouterName(group)
 	s.printRoute(myList)
 }
-
 
 /******************************** Print ***************************************/
 
@@ -41,6 +43,10 @@ func (s *Server) myRouterName(group string) (myList []string) {
 		"-------------------- Home ---------------------",
 		"-----------------------------------------------",
 		"method[GET] --> " + group + "/",
+		" ",
+		"-------------------- Login ---------------------",
+		"-----------------------------------------------",
+		"method[POST] --> " + group + "/login",
 		" ",
 		"-------------------- user ---------------------",
 		"-----------------------------------------------",

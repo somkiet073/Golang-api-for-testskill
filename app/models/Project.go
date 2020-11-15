@@ -2,8 +2,6 @@ package models
 
 import (
 	"errors"
-	"html"
-	"strings"
 	"time"
 
 	"github.com/jinzhu/gorm"
@@ -18,15 +16,6 @@ type Project struct {
 	UserID      uint32    `gorm:"not null" json:"user_id"`
 	CreatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt   time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`
-}
-
-// Prepare = prepare
-func (p *Project) Prepare() {
-	p.Title = html.EscapeString(strings.TrimSpace(p.Title))
-	p.Description = html.EscapeString(strings.TrimSpace(p.Description))
-	p.User = User{}
-	p.CreatedAt = time.Now()
-	p.UpdatedAt = time.Now()
 }
 
 // =======================================================================
@@ -47,12 +36,27 @@ func (p *Project) FindAllProject(db *gorm.DB) (*[]Project, error) {
 	if err != nil {
 		return &[]Project{}, err
 	}
+
+	if len(project) > 0 {
+		for i, _ := range project {
+			err := db.Debug().Model(&User{}).Where("id = ?", project[i].UserID).Take(&project[i].User).Error
+			if err != nil {
+				return &[]Project{}, err
+			}
+		}
+	}
+
 	return &project, nil
 }
 
 // FindProjectByID = findProjectByID
 func (p *Project) FindProjectByID(db *gorm.DB, pid uint64) (*Project, error) {
 	err := db.Debug().Model(&Project{}).Where("id=?", pid).Take(&p).Error
+	if err != nil {
+		return &Project{}, err
+	}
+
+	err = db.Debug().Model(&User{}).Where("id = ?", p.UserID).Take(&p.User).Error
 	if err != nil {
 		return &Project{}, err
 	}

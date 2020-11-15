@@ -1,0 +1,88 @@
+@base_url = http://localhost:8081/api/v1
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2MDU0NjgwMDMsInVzZXJJRCI6MX0.S7hFyxWc34sDNFeMIprpidFv7bDkyj5IJImHkcS47jw
+
+################## Api welcome ###################
+GET {{base_url}}/ HTTP/1.1
+
+################ login ##################
+POST {{base_url}}/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email":  "test@email.com",
+    "password": "123456"
+}
+
+#################################################
+################ Endpoint User ##################
+####################################################
+
+GET {{base_url}}/user/all HTTP/1.1
+token: {{token}}
+###
+GET {{base_url}}/user/9 HTTP/1.1
+token: {{token}}
+###
+POST {{base_url}}/user HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "fristname":  "test",
+    "lastname": "test",
+    "nickname":  "t",
+    "email":  "test@email.com",
+    "password": "123456"
+}
+
+###
+PUT {{base_url}}/user/1 HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "fristname":  "test2",
+    "lastname": "test2",
+    "nickname":  "t",
+    "email":  "test@email.com",
+    "password": "123456"
+}
+
+###
+DELETE {{base_url}}/user/1 HTTP/1.1
+token: {{token}}
+
+####################################################
+################ Endpoint Project ##################
+####################################################
+
+GET {{base_url}}/project/all HTTP/1.1
+token: {{token}}
+###
+GET {{base_url}}/project/1 HTTP/1.1
+token: {{token}}
+###
+POST {{base_url}}/project HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "title":  "test1",
+    "description": "test Project1",
+    "user_id":  1
+}
+
+###
+PUT {{base_url}}/project/1 HTTP/1.1
+Content-Type: application/json
+token: {{token}}
+
+{
+    "title":  "xxxxxx",
+    "description": "xxxxxxxx",
+    "user_id":  1
+}
+
+###
+DELETE {{base_url}}/project/1 HTTP/1.1
+token: {{token}}
