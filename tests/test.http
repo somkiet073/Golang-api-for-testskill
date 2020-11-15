@@ -1,5 +1,5 @@
 @base_url = http://localhost:8081/api/v1
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2MDU0NjgwMDMsInVzZXJJRCI6MX0.S7hFyxWc34sDNFeMIprpidFv7bDkyj5IJImHkcS47jw
+@token = Token_Key
 
 ################## Api welcome ###################
 GET {{base_url}}/ HTTP/1.1
